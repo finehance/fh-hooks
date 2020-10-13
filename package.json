@@ -23,8 +23,7 @@
   },
   "lint-staged": {
     "*.[jt]s?(x)": [
-      "npm run lint:fix",
-      "git add"
+      "npm run lint:fix"
     ]
   },
   "peerDependencies": {
