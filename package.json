@@ -1,0 +1,20 @@
+{
+  "name": "fh-hooks",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "Karol Stopyra",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:stopyransky/fh-hooks.git"
+  },
+  "main": "dist/fh-hooks.cjs.js",
+  "module": "dist/fh-hooks.esm.js",
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {},
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "devDependencies": {}
+}
