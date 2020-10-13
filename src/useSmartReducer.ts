@@ -4,12 +4,11 @@ import { Action } from '../types';
 export function updateObject(object: any, key: string, value: any): any {
   if (has(object, key)) {
     return { ...object, [key]: value };
-  } else {
-    console.error(
-      `updateObject: Unrecognized property name: ${key}. State was not modified.`
-    );
-    return object;
   }
+  console.error(
+    `updateObject: Unrecognized property name: ${key}. State was not modified.`
+  );
+  return object;
 }
 export function isObject(object: any): boolean {
   return typeof object === 'object' && !Array.isArray(object) && !!object;
@@ -29,14 +28,12 @@ const makeReducer = (customReducer: any = null) => (
 ): any => {
   if (!customReducer) {
     return baseReducer(state, action);
-  } else {
-    const newState = customReducer(state, action);
-    if (newState === null) {
-      return baseReducer(state, action);
-    } else {
-      return newState;
-    }
   }
+  const newState = customReducer(state, action);
+  if (newState === null) {
+    return baseReducer(state, action);
+  }
+  return newState;
 };
 
 /**
@@ -68,20 +65,18 @@ export default function useSmartReducer(
   function setState(type: string, value = null): void {
     if (customReducer) {
       dispatch({ type, value });
-    } else {
-      if (keys.includes(type)) {
-        if (value !== null) {
-          dispatch({ type, value });
-        } else {
-          console.error(
-            `SmartReducer: Missing action.value for '${type}'. Provide the value or pass a custom reducer.`
-          );
-        }
+    } else if (keys.includes(type)) {
+      if (value !== null) {
+        dispatch({ type, value });
       } else {
         console.error(
-          `SmartReducer: Unrecognized action.type: ${type}. Make sure '${type}' is defined in the initial state.`
+          `SmartReducer: Missing action.value for '${type}'. Provide the value or pass a custom reducer.`
         );
       }
+    } else {
+      console.error(
+        `SmartReducer: Unrecognized action.type: ${type}. Make sure '${type}' is defined in the initial state.`
+      );
     }
   }
 

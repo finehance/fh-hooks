@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
+
 import { Action } from '../types';
 
 const initialState = {
@@ -22,10 +23,9 @@ function styleReducer(state: StyleState, action: Action) {
   }
 }
 
-export default function useInlineStyle(
-  styleFn: (s: StyleState, p: any) => any,
-  props: any
-) {
+type StylingFn = (s: StyleState, p: any) => any;
+
+export default function useInlineStyle(styleFn: StylingFn, props: any) {
   const ref = useRef(null);
   const [styleState, dispatch] = useReducer(styleReducer, initialState);
   const setStyle = useCallback((type, value) => dispatch({ type, value }), [

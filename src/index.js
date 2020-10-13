@@ -3,6 +3,7 @@ import useInlineStyle from './useInlineStyle.ts';
 
 const hooks = {
   useSmartReducer,
+  thefuck: 'fuck',
   useInlineStyle,
 };
 
