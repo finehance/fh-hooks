@@ -1,14 +1,12 @@
-import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
+import * as React from 'react';
 
-import { Action } from '../types';
+import { Action, StyleState, StylingFn } from '../types';
 
-const initialState = {
+const initialState: StyleState = {
   hover: false,
   active: false,
   focus: false,
 };
-
-type StyleState = typeof initialState;
 
 function styleReducer(state: StyleState, action: Action) {
   switch (action.type) {
@@ -23,22 +21,24 @@ function styleReducer(state: StyleState, action: Action) {
   }
 }
 
-type StylingFn = (s: StyleState, p: any) => any;
+export default function useInlineStyle(
+  styleFn: StylingFn,
+  props: any
+): [any, any] {
+  const ref = React.useRef(null);
+  const [styleState, dispatch] = React.useReducer(styleReducer, initialState);
+  const setStyle = React.useCallback(
+    (type: string, value: any) => dispatch({ type, value }),
+    [dispatch]
+  );
 
-export default function useInlineStyle(styleFn: StylingFn, props: any) {
-  const ref = useRef(null);
-  const [styleState, dispatch] = useReducer(styleReducer, initialState);
-  const setStyle = useCallback((type, value) => dispatch({ type, value }), [
-    dispatch,
-  ]);
-
-  const style = useMemo(() => styleFn(styleState, props), [
+  const style = React.useMemo(() => styleFn(styleState, props), [
     styleFn,
     styleState,
     props,
   ]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     let el: any;
     const pointerOver = () => setStyle('hover', true);
     const pointerOut = () => setStyle('hover', false);

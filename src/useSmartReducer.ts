@@ -1,7 +1,7 @@
-import { useReducer } from 'react';
+import * as React from 'react';
 import { Action } from '../types';
 
-export function updateObject(object: any, key: string, value: any): any {
+function updateObject(object: any, key: string, value: any): any {
   if (has(object, key)) {
     return { ...object, [key]: value };
   }
@@ -10,7 +10,7 @@ export function updateObject(object: any, key: string, value: any): any {
   );
   return object;
 }
-export function isObject(object: any): boolean {
+function isObject(object: any): boolean {
   return typeof object === 'object' && !Array.isArray(object) && !!object;
 }
 
@@ -18,7 +18,7 @@ function has(object: any, key: string): boolean {
   return isObject(object) && Object.prototype.hasOwnProperty.call(object, key);
 }
 
-export function baseReducer(state: any, action: Action): any {
+function baseReducer(state: any, action: Action): any {
   return updateObject(state, action.type, action.value);
 }
 
@@ -57,7 +57,7 @@ export default function useSmartReducer(
 ) {
   const keys = Object.keys(initialState);
 
-  const [state, dispatch] = useReducer(
+  const [state, dispatch] = React.useReducer(
     makeReducer(customReducer),
     initialState
   );
