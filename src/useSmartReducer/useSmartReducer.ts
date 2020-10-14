@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Action } from './types';
+import { Action } from '../types';
 
 function updateObject(object: any, key: string, value: any): any {
   if (has(object, key)) {
@@ -51,10 +51,7 @@ const makeReducer = (customReducer: any = null) => (
  */
 
 // TODO make it generic type for state T instead of any
-export default function useSmartReducer(
-  initialState: any,
-  customReducer: any = null
-) {
+function useSmartReducer(initialState: any, customReducer: any = null): any {
   const keys = Object.keys(initialState);
 
   const [state, dispatch] = React.useReducer(
@@ -82,3 +79,5 @@ export default function useSmartReducer(
 
   return [state, setState];
 }
+
+export default useSmartReducer;
