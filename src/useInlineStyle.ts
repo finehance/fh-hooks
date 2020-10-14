@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Action, StyleState, StylingFn } from '../types';
+import { Action, StyleState, StylingFn } from './types';
 
 const initialState: StyleState = {
   hover: false,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Action } from '../types';
+import { Action } from './types';
 
 function updateObject(object: any, key: string, value: any): any {
   if (has(object, key)) {

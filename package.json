@@ -8,9 +8,8 @@
     "url": "git@github.com:stopyransky/fh-hooks.git"
   },
   "description": "Custom react hooks",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.esm.js",
   "files": [
     "dist"
   ],
