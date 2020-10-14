@@ -9,10 +9,10 @@
       }
     ],
     "@babel/react"
-  ]
-  // "env": {
-  //   "test": {
-  //     "presets": ["@babel/env", "@babel/react"]
-  //   }
-  // }
+  ],
+  "env": {
+    "test": {
+      "presets": ["@babel/env", "@babel/react"]
+    }
+  }
 }

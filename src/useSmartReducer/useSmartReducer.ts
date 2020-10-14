@@ -37,7 +37,7 @@ const makeReducer = (customReducer: any = null) => (
 };
 
 /**
- * Returns new state as provided from custom reducer.
+ * Returns new state as provided by custom reducer.
  * If customReducer is not provided it will check if action.type matches with name of any property in the initialState.
  * If action.type matches with state property then it will update it with given action.value.
  * If action.value is not provided and customReducer is not given it will not change state.
@@ -72,7 +72,7 @@ function useSmartReducer(initialState: any, customReducer: any = null): any {
       }
     } else {
       console.error(
-        `SmartReducer: Unrecognized action.type: ${type}. Make sure '${type}' is defined in the initial state.`
+        `SmartReducer: Unrecognized action.type: '${type}'. Make sure '${type}' is defined in the initial state.`
       );
     }
   }
