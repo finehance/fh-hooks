@@ -1,4 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks';
+import { useEffect } from 'react';
 import useSmartReducer from './useSmartReducer';
 
 test('should return [state, setState] array', () => {

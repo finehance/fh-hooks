@@ -1,4 +1,4 @@
-import { Reducer, useReducer } from 'react';
+import { Reducer, useCallback, useMemo, useReducer } from 'react';
 import { Action } from '../types';
 
 function updateObject(
@@ -81,18 +81,21 @@ function useSmartReducer(
   const reducer = makeReducer(customReducer);
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  function setState(type: string, value?: unknown): void {
-    if (customReducer || typeof value !== 'undefined') {
-      dispatch({ type, value });
+  const setState = useMemo(
+    () => (type: string, value?: unknown): void => {
+      if (customReducer || typeof value !== 'undefined') {
+        dispatch({ type, value });
+        return;
+      }
+
+      console.error(
+        `SmartReducer: Missing action.value for '${type}'. Provide the value or pass a custom reducer.`
+      );
+
       return;
-    }
-
-    console.error(
-      `SmartReducer: Missing action.value for '${type}'. Provide the value or pass a custom reducer.`
-    );
-
-    return;
-  }
+    },
+    [dispatch, customReducer]
+  );
 
   return [state, setState];
 }
