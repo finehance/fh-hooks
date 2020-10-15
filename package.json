@@ -1,6 +1,6 @@
 {
   "name": "fh-hooks",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "author": "Karol Stopyra",
   "repository": {
@@ -11,10 +11,11 @@
   "description": "Custom react hooks",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.esm.js",
-  "sideEffects": false,
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "sideEffects": false,
   "engines": {
     "node": ">=10"
   },

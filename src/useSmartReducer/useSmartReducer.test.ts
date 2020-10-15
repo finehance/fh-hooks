@@ -108,7 +108,7 @@ test('should not work with arrays', () => {
   const original = console.error;
   console.error = jest.fn();
 
-  const { result } = renderHook(() => useSmartReducer([1, 2, 3] as any));
+  const { result } = renderHook(() => useSmartReducer([1, 2, 3] as never));
 
   act(() => {
     const setState = result.current[1];

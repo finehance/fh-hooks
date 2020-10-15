@@ -9,4 +9,7 @@ export interface StyleState {
   active: boolean;
 }
 
-export type StylingFn = (s: StyleState, p: any) => React.CSSProperties;
+export type StylingFn = (
+  s: StyleState,
+  p: Record<string, unknown>
+) => React.CSSProperties;
