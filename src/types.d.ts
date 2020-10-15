@@ -1,6 +1,6 @@
 export interface Action {
   type: string;
-  value: any;
+  value: unknown;
 }
 
 export interface StyleState {
@@ -10,6 +10,6 @@ export interface StyleState {
 }
 
 export type StylingFn = (
-  s: StyleState,
-  p: Record<string, unknown>
-) => React.CSSProperties;
+  state: StyleState,
+  props: Record<string, unknown>
+) => Record<string, unknown>;
