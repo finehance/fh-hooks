@@ -1,4 +1,4 @@
-import { Reducer, useCallback, useMemo, useReducer } from 'react';
+import { Reducer, useMemo, useReducer } from 'react';
 import { Action } from '../types';
 
 function updateObject(
