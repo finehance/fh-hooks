@@ -18,6 +18,10 @@
     "node": ">=10"
   },
   "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:staged": "jest --findRelatedTests",
     "prebuild": "rimraf dist",
     "build": "rollup -c",
     "lint": "eslint $PWD/'**/*.[jt]s?(x)'",
@@ -30,7 +34,8 @@
   },
   "lint-staged": {
     "*.[jt]s?(x)": [
-      "npm run lint:fix"
+      "npm run lint:fix",
+      "npm run test:staged"
     ]
   },
   "peerDependencies": {

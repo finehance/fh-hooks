@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1602758946241" clover="3.2.0">
+  <project timestamp="1602758946241" name="All files">
+    <metrics statements="31" coveredstatements="31" conditionals="23" coveredconditionals="22" methods="9" coveredmethods="9" elements="63" coveredelements="62" complexity="0" loc="31" ncloc="31" packages="1" files="1" classes="1"/>
+    <file name="useSmartReducer.ts" path="/Users/bluemoon/dev/fh-hooks/src/useSmartReducer/useSmartReducer.ts">
+      <metrics statements="31" coveredstatements="31" conditionals="23" coveredconditionals="22" methods="9" coveredmethods="9"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="5" count="5" type="cond" truecount="2" falsecount="0"/>
+      <line num="6" count="4" type="stmt"/>
+      <line num="8" count="1" type="stmt"/>
+      <line num="11" count="1" type="stmt"/>
+      <line num="14" count="16" type="cond" truecount="3" falsecount="0"/>
+      <line num="18" count="5" type="cond" truecount="2" falsecount="0"/>
+      <line num="22" count="5" type="stmt"/>
+      <line num="25" count="10" type="cond" truecount="1" falsecount="1"/>
+      <line num="26" count="10" type="stmt"/>
+      <line num="27" count="8" type="cond" truecount="2" falsecount="0"/>
+      <line num="28" count="3" type="stmt"/>
+      <line num="30" count="5" type="stmt"/>
+      <line num="31" count="5" type="cond" truecount="2" falsecount="0"/>
+      <line num="32" count="2" type="stmt"/>
+      <line num="34" count="3" type="stmt"/>
+      <line num="64" count="17" type="cond" truecount="2" falsecount="0"/>
+      <line num="66" count="11" type="cond" truecount="2" falsecount="0"/>
+      <line num="67" count="1" type="stmt"/>
+      <line num="68" count="1" type="stmt"/>
+      <line num="71" count="1" type="stmt"/>
+      <line num="75" count="10" type="stmt"/>
+      <line num="76" count="10" type="stmt"/>
+      <line num="78" count="8" type="cond" truecount="2" falsecount="0"/>
+      <line num="79" count="6" type="cond" truecount="4" falsecount="0"/>
+      <line num="80" count="5" type="stmt"/>
+      <line num="81" count="5" type="stmt"/>
+      <line num="84" count="1" type="stmt"/>
+      <line num="88" count="1" type="stmt"/>
+      <line num="91" count="10" type="stmt"/>
+      <line num="94" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>

@@ -6,7 +6,7 @@ function updateObject(object: any, key: string, value: any): any {
     return { ...object, [key]: value };
   }
   console.error(
-    `updateObject: Unrecognized property name: ${key}. State was not modified.`
+    `updateObject: Unrecognized property name: '${key}'. State was not modified.`
   );
   return object;
 }
@@ -22,24 +22,32 @@ function baseReducer(state: any, action: Action): any {
   return updateObject(state, action.type, action.value);
 }
 
-const makeReducer = (customReducer: any = null) => (
-  state: any,
-  action: Action
-): any => {
-  if (!customReducer) {
-    return baseReducer(state, action);
-  }
-  const newState = customReducer(state, action);
-  if (newState === null) {
-    return baseReducer(state, action);
-  }
-  return newState;
-};
+function makeReducer(customReducer?: any) {
+  return function reducerFn(state: any, action: Action): any {
+    if (typeof customReducer === 'undefined') {
+      return baseReducer(state, action);
+    }
+    const newState = customReducer(state, action);
+    if (newState === null) {
+      return baseReducer(state, action);
+    }
+    return newState;
+  };
+}
 
 /**
- * Returns new state as provided by custom reducer.
- * If customReducer is not provided it will check if action.type matches with name of any property in the initialState.
- * If action.type matches with state property then it will update it with given action.value.
+ * Hook works object '{}' state only.
+ * Similarly to React useState and useReducer retaining all advantages of both and less verbosity than useReducer.
+ *
+ * How it works:
+ * the hook returns [state, setState].
+ * setState accepts two arguments (type, value), where:
+ * - type is the key of the state or reducer's action name,
+ * - value is the new value of the portion of the state defined by type.
+ * setState returns new state as provided by custom reducer.
+ *
+ * If customReducer is not provided it will check if first argument of setState (action.type) matches with any key in the initialState.
+ * If action.type matches with any state key then the hook will update the state with given second argument of setState (action.value).
  * If action.value is not provided and customReducer is not given it will not change state.
  * If customReducer is provided and it returns null as default case, then the baseReducer will be used as default.
  * If customReducer is provided and it returns unchanged state as default case then baseReducer will not be used and state will be handled
@@ -47,34 +55,37 @@ const makeReducer = (customReducer: any = null) => (
  * @param initialState initial state of the reducer.
  * @param customReducer custom reducer functiom
  *
- * @return [ state, setState ], where state is updated state and setState is function that accepts (type: string, value?: any = null);
+ * @return [ state, setState ], where state is current state and setState is function that accepts (type: string, value?: any = null);
  */
 
 // TODO make it generic type for state T instead of any
-function useSmartReducer(initialState: any, customReducer: any = null): any {
-  const keys = Object.keys(initialState);
+function useSmartReducer(
+  initialState: Record<string, unknown>,
+  customReducer?: any
+): any {
+  if (!isObject(initialState)) {
+    console.error(`SmartReducer: initialState should be an Object.`);
+    return [
+      initialState,
+      (v?: unknown) => {
+        return;
+      },
+    ];
+  }
+  const reducer = makeReducer(customReducer);
+  const [state, dispatch] = React.useReducer(reducer, initialState);
 
-  const [state, dispatch] = React.useReducer(
-    makeReducer(customReducer),
-    initialState
-  );
-
-  function setState(type: string, value = null): void {
-    if (customReducer) {
+  function setState(type: string, value?: any): void {
+    if (customReducer || typeof value !== 'undefined') {
       dispatch({ type, value });
-    } else if (keys.includes(type)) {
-      if (value !== null) {
-        dispatch({ type, value });
-      } else {
-        console.error(
-          `SmartReducer: Missing action.value for '${type}'. Provide the value or pass a custom reducer.`
-        );
-      }
-    } else {
-      console.error(
-        `SmartReducer: Unrecognized action.type: '${type}'. Make sure '${type}' is defined in the initial state.`
-      );
+      return;
     }
+
+    console.error(
+      `SmartReducer: Missing action.value for '${type}'. Provide the value or pass a custom reducer.`
+    );
+
+    return;
   }
 
   return [state, setState];
