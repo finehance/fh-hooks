@@ -1,7 +1,11 @@
-import * as React from 'react';
+import { Reducer, useReducer } from 'react';
 import { Action } from '../types';
 
-function updateObject(object: any, key: string, value: any): any {
+function updateObject(
+  object: Record<string, unknown>,
+  key: string,
+  value: unknown
+): Record<string, unknown> {
   if (has(object, key)) {
     return { ...object, [key]: value };
   }
@@ -10,20 +14,27 @@ function updateObject(object: any, key: string, value: any): any {
   );
   return object;
 }
-function isObject(object: any): boolean {
-  return typeof object === 'object' && !Array.isArray(object) && !!object;
-}
 
-function has(object: any, key: string): boolean {
+function has(object: Record<string, unknown>, key: string): boolean {
   return isObject(object) && Object.prototype.hasOwnProperty.call(object, key);
 }
 
-function baseReducer(state: any, action: Action): any {
+function isObject(object: Record<string, unknown>): boolean {
+  return typeof object === 'object' && !Array.isArray(object) && !!object;
+}
+
+function baseReducer(
+  state: Record<string, unknown>,
+  action: Action
+): Record<string, unknown> {
   return updateObject(state, action.type, action.value);
 }
 
-function makeReducer(customReducer?: any) {
-  return function reducerFn(state: any, action: Action): any {
+function makeReducer(customReducer?: Reducer<Record<string, unknown>, Action>) {
+  return function reducerFn(
+    state: Record<string, unknown>,
+    action: Action
+  ): Record<string, unknown> {
     if (typeof customReducer === 'undefined') {
       return baseReducer(state, action);
     }
@@ -36,7 +47,7 @@ function makeReducer(customReducer?: any) {
 }
 
 /**
- * Hook works object '{}' state only.
+ * Hook works with object '{}' state only.
  * Similarly to React useState and useReducer retaining all advantages of both and less verbosity than useReducer.
  *
  * How it works:
@@ -46,36 +57,31 @@ function makeReducer(customReducer?: any) {
  * - value is the new value of the portion of the state defined by type.
  * setState returns new state as provided by custom reducer.
  *
- * If customReducer is not provided it will check if first argument of setState (action.type) matches with any key in the initialState.
- * If action.type matches with any state key then the hook will update the state with given second argument of setState (action.value).
- * If action.value is not provided and customReducer is not given it will not change state.
- * If customReducer is provided and it returns null as default case, then the baseReducer will be used as default.
- * If customReducer is provided and it returns unchanged state as default case then baseReducer will not be used and state will be handled
+ * Rules of thumb:
+ * - If customReducer is not provided it will check if first argument of setState (action.type) matches with any key in the initialState.
+ * - If action.type matches with any state key then the hook will update the state with given second argument of setState (action.value).
+ * - If action.value is not provided and customReducer is not given it will not change state.
+ * - If customReducer is provided and it returns null as default case, then the baseReducer will be used as default.
+ * - If customReducer is provided and it returns unchanged state as default case then baseReducer will not be used and state will be handled
  * exactly as per provided reducer.
  * @param initialState initial state of the reducer.
- * @param customReducer custom reducer functiom
+ * @param customReducer optional, custom reducer functiom
  *
  * @return [ state, setState ], where state is current state and setState is function that accepts (type: string, value?: any = null);
  */
 
-// TODO make it generic type for state T instead of any
+// TODO make it optionally generic type for state T
 function useSmartReducer(
   initialState: Record<string, unknown>,
-  customReducer?: any
-): any {
-  if (!isObject(initialState)) {
-    console.error(`SmartReducer: initialState should be an Object.`);
-    return [
-      initialState,
-      (v?: unknown) => {
-        return;
-      },
-    ];
-  }
+  customReducer?: Reducer<Record<string, unknown>, Action>
+): [
+  state: Record<string, unknown>,
+  setState: (type: string, value?: unknown) => void
+] {
   const reducer = makeReducer(customReducer);
-  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  function setState(type: string, value?: any): void {
+  function setState(type: string, value?: unknown): void {
     if (customReducer || typeof value !== 'undefined') {
       dispatch({ type, value });
       return;

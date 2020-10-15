@@ -77,7 +77,7 @@ test('should change the state using action.types defined only in custom reducer'
 
   act(() => {
     const setState = result.current[1];
-    // this should not work bacause  action.type = 'name' is not defined in custom reducer
+    // action.type = 'name' is not defined in custom reducer therefore it will not change state
     setState('name', 'Orange');
   });
   expect(result.current[0]).toStrictEqual({ name: 'Banana', cost: 0.0 });
@@ -112,7 +112,7 @@ test('should not work with arrays', () => {
 
   act(() => {
     const setState = result.current[1];
-    setState(0, 17);
+    setState('0', 17);
   });
 
   expect(result.current[0]).toStrictEqual([1, 2, 3]);
