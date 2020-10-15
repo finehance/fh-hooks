@@ -7,6 +7,7 @@
     "type": "git",
     "url": "git@github.com:stopyransky/fh-hooks.git"
   },
+  "homepage": "https://github.com/stopyransky/fh-hooks",
   "description": "Custom react hooks",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.esm.js",
@@ -26,7 +27,8 @@
     "prebuild": "rimraf dist",
     "build": "rollup -c",
     "lint": "eslint $PWD/'**/*.[jt]s?(x)'",
-    "lint:fix": "prettier-eslint $PWD/'**/*.[jt]s?(x)' --write"
+    "lint:fix": "prettier-eslint $PWD/'**/*.[jt]s?(x)' --write",
+    "prepublish": "npm run build"
   },
   "husky": {
     "hooks": {

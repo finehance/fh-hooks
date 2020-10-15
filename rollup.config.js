@@ -32,6 +32,6 @@ export default {
       namedExports: { react: ['createElement', 'Component'] },
     }),
     typescript({ useTsconfigDeclarationDir: true }),
-    // production && terser({ format: { comments: false } }),
+    production && terser({ format: { comments: false } }),
   ],
 };
