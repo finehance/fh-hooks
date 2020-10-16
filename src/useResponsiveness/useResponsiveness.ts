@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
+import { ScreenProps } from '../types';
 
 const DEFAULT_BREAKPOINTS = {
   xs: 0,
@@ -6,16 +7,6 @@ const DEFAULT_BREAKPOINTS = {
   tablet: 768,
   desktop: 1180,
 };
-
-interface ScreenProps {
-  size: string;
-  orientation: string;
-  isMobile: boolean;
-  isTablet: boolean;
-  isDesktop: boolean;
-  screenIsAtLeast: (breakpointName: string, orientation?: string) => boolean;
-  screenIsAtMost: (breakpointName: string, orientation?: string) => boolean;
-}
 
 function getScreenData(breakpoints: any, sizes: any[]): ScreenProps {
   const width = globalThis.innerWidth || 1280;

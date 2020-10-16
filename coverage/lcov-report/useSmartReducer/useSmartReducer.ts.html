@@ -150,21 +150,7 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,17 +172,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -237,11 +217,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">14x</span>
@@ -266,11 +246,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Reducer, useMemo, useReducer } from 'react';
 import { Action } from '../types';
 &nbsp;
-function updateObject(
-  object: Record&lt;string, unknown&gt;,
-  key: string,
-  value: unknown
-): Record&lt;string, unknown&gt; {
+function updateObject&lt;T&gt;(object: T, key: string, value: unknown): T {
   if (has(object, key)) {
     return { ...object, [key]: value };
   }
@@ -280,26 +256,20 @@ function updateObject(
   return object;
 }
 &nbsp;
-function has(object: Record&lt;string, unknown&gt;, key: string): boolean {
+function has&lt;T&gt;(object: T, key: string): boolean {
   return isObject(object) &amp;&amp; Object.prototype.hasOwnProperty.call(object, key);
 }
 &nbsp;
-function isObject(object: Record&lt;string, unknown&gt;): boolean {
+function isObject&lt;T&gt;(object: T): boolean {
   return typeof object === 'object' &amp;&amp; !Array.isArray(object) &amp;&amp; !!object;
 }
 &nbsp;
-function baseReducer(
-  state: Record&lt;string, unknown&gt;,
-  action: Action
-): Record&lt;string, unknown&gt; {
+function baseReducer&lt;T&gt;(state: T, action: Action): T {
   return updateObject(state, action.type, action.value);
 }
 &nbsp;
-function makeReducer(customReducer?: Reducer&lt;Record&lt;string, unknown&gt;, Action&gt;) {
-  return function reducerFn(
-    state: Record&lt;string, unknown&gt;,
-    action: Action
-  ): Record&lt;string, unknown&gt; {
+function makeReducer&lt;T&gt;(customReducer?: Reducer&lt;T, Action&gt;) {
+  return function reducerFn(state: T, action: Action): T {
     if (typeof customReducer === 'undefined') {
       return baseReducer(state, action);
     }
@@ -336,15 +306,15 @@ function makeReducer(customReducer?: Reducer&lt;Record&lt;string, unknown&gt;, A
  */
 &nbsp;
 // TODO make it optionally generic type for state T
-function useSmartReducer(
-  initialState: Record&lt;string, unknown&gt;,
-  customReducer?: Reducer&lt;Record&lt;string, unknown&gt;, Action&gt;
-): [
-  state: Record&lt;string, unknown&gt;,
-  setState: (type: string, value?: unknown) =&gt; void
-] {
+function useSmartReducer&lt;T&gt;(
+  initialState: T,
+  customReducer?: Reducer&lt;T, Action&gt;
+): [state: T, setState: (type: string, value?: unknown) =&gt; void] {
   const reducer = makeReducer(customReducer);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer&lt;Reducer&lt;T, Action&gt;&gt;(
+    reducer,
+    initialState
+  );
 &nbsp;
   const setState = useMemo(
     () =&gt; (type: string, value?: unknown): void =&gt; {
@@ -373,7 +343,7 @@ export default useSmartReducer;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 16 2020 14:04:41 GMT+0200 (Central European Summer Time)
+                at Fri Oct 16 2020 22:57:55 GMT+0200 (Central European Summer Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

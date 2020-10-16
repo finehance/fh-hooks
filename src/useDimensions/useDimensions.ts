@@ -1,25 +1,6 @@
 import { useRef, useEffect } from 'react';
-import { Action } from '../types';
+import { Action, Dimensions, DimensionsPayload } from '../types';
 import { useSmartReducer } from '../useSmartReducer';
-interface Dimensions {
-  width: number;
-  height: number;
-  margin: {
-    left: number;
-    right: number;
-    top: number;
-    bottom: number;
-  };
-  canvasWidth: number;
-  canvasHeight: number;
-}
-
-type DimensionsPayload = [
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  React.RefObject<any>,
-  Dimensions,
-  (type: string, value?: unknown) => void
-];
 
 const DEFAULT_DIMENSIONS: Dimensions = {
   width: globalThis.innerWidth,

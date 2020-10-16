@@ -5,6 +5,7 @@ import {
   useMemo,
   useEffect,
   RefObject,
+  CSSProperties,
 } from 'react';
 
 import { Action, StyleState, StylingFn } from '../types';
@@ -28,10 +29,10 @@ function styleReducer(state: StyleState, action: Action): StyleState {
   }
 }
 
-export default function useInlineStyle<T extends HTMLElement>(
-  styleFn: StylingFn,
-  props?: Record<string, unknown>
-): [ref: RefObject<T>, style: Record<string, unknown>] {
+export default function useInlineStyle<T extends HTMLElement, P>(
+  styleFn: StylingFn<P>,
+  props?: P
+): [ref: RefObject<T>, style: CSSProperties] {
   const ref = useRef<T>(null);
   const [styleState, dispatch] = useReducer(styleReducer, initialState);
   const setStyle = useCallback(

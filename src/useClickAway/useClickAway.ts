@@ -6,6 +6,7 @@ interface ClickAwayPayload {
   setActive: (v: boolean) => void;
   toggle: () => void;
 }
+
 export default function useClickAway<
   T extends HTMLElement
 >(): ClickAwayPayload {

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1602849881775" clover="3.2.0">
-  <project timestamp="1602849881775" name="All files">
-    <metrics statements="71" coveredstatements="70" conditionals="31" coveredconditionals="30" methods="23" coveredmethods="20" elements="125" coveredelements="120" complexity="0" loc="71" ncloc="71" packages="2" files="3" classes="3"/>
+<coverage generated="1602881875304" clover="3.2.0">
+  <project timestamp="1602881875304" name="All files">
+    <metrics statements="70" coveredstatements="69" conditionals="29" coveredconditionals="28" methods="23" coveredmethods="20" elements="122" coveredelements="117" complexity="0" loc="70" ncloc="70" packages="2" files="3" classes="3"/>
     <package name="useInlineStyle">
-      <metrics statements="45" coveredstatements="44" conditionals="16" coveredconditionals="15" methods="14" coveredmethods="11"/>
-      <file name="TestInlineStyle.tsx" path="/Users/bluemoon/dev/fh-hooks/src/useInlineStyle/TestInlineStyle.tsx">
+      <metrics statements="44" coveredstatements="43" conditionals="14" coveredconditionals="13" methods="14" coveredmethods="11"/>
+      <file name="InlineStyleTest.tsx" path="/Users/bluemoon/dev/fh-hooks/src/useInlineStyle/InlineStyleTest.tsx">
         <metrics statements="8" coveredstatements="8" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -16,7 +16,7 @@
         <line num="20" count="8" type="stmt"/>
       </file>
       <file name="useInlineStyle.ts" path="/Users/bluemoon/dev/fh-hooks/src/useInlineStyle/useInlineStyle.ts">
-        <metrics statements="37" coveredstatements="36" conditionals="8" coveredconditionals="7" methods="12" coveredmethods="9"/>
+        <metrics statements="36" coveredstatements="35" conditionals="6" coveredconditionals="5" methods="12" coveredmethods="9"/>
         <line num="1" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="19" count="3" type="stmt"/>
@@ -31,29 +31,28 @@
         <line num="38" count="3" type="stmt"/>
         <line num="42" count="9" type="stmt"/>
         <line num="48" count="9" type="stmt"/>
-        <line num="50" count="5" type="stmt"/>
-        <line num="51" count="5" type="stmt"/>
-        <line num="52" count="5" type="stmt"/>
-        <line num="53" count="5" type="stmt"/>
-        <line num="54" count="5" type="stmt"/>
-        <line num="55" count="5" type="stmt"/>
-        <line num="57" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="49" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="50" count="4" type="stmt"/>
+        <line num="51" count="4" type="stmt"/>
+        <line num="52" count="4" type="stmt"/>
+        <line num="53" count="4" type="stmt"/>
+        <line num="54" count="4" type="stmt"/>
+        <line num="55" count="4" type="stmt"/>
+        <line num="57" count="4" type="stmt"/>
         <line num="58" count="4" type="stmt"/>
         <line num="59" count="4" type="stmt"/>
         <line num="60" count="4" type="stmt"/>
         <line num="61" count="4" type="stmt"/>
         <line num="62" count="4" type="stmt"/>
-        <line num="63" count="4" type="stmt"/>
         <line num="64" count="4" type="stmt"/>
-        <line num="66" count="5" type="stmt"/>
-        <line num="67" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="65" count="4" type="stmt"/>
+        <line num="66" count="4" type="stmt"/>
+        <line num="67" count="4" type="stmt"/>
         <line num="68" count="4" type="stmt"/>
         <line num="69" count="4" type="stmt"/>
         <line num="70" count="4" type="stmt"/>
-        <line num="71" count="4" type="stmt"/>
-        <line num="72" count="4" type="stmt"/>
-        <line num="73" count="4" type="stmt"/>
-        <line num="78" count="9" type="stmt"/>
+        <line num="75" count="9" type="stmt"/>
+        <line num="77" count="9" type="stmt"/>
       </file>
     </package>
     <package name="useSmartReducer">
@@ -61,31 +60,31 @@
       <file name="useSmartReducer.ts" path="/Users/bluemoon/dev/fh-hooks/src/useSmartReducer/useSmartReducer.ts">
         <metrics statements="26" coveredstatements="26" conditionals="15" coveredconditionals="15" methods="9" coveredmethods="9"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="9" count="12" type="cond" truecount="2" falsecount="0"/>
-        <line num="10" count="10" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="19" count="12" type="cond" truecount="2" falsecount="0"/>
-        <line num="23" count="12" type="cond" truecount="3" falsecount="0"/>
-        <line num="30" count="12" type="stmt"/>
-        <line num="34" count="18" type="stmt"/>
-        <line num="38" count="15" type="cond" truecount="2" falsecount="0"/>
-        <line num="39" count="10" type="stmt"/>
-        <line num="41" count="5" type="stmt"/>
-        <line num="42" count="5" type="cond" truecount="2" falsecount="0"/>
-        <line num="43" count="2" type="stmt"/>
-        <line num="45" count="3" type="stmt"/>
-        <line num="81" count="18" type="stmt"/>
-        <line num="82" count="18" type="stmt"/>
-        <line num="84" count="18" type="stmt"/>
-        <line num="85" count="14" type="stmt"/>
-        <line num="86" count="11" type="cond" truecount="4" falsecount="0"/>
-        <line num="87" count="9" type="stmt"/>
-        <line num="88" count="9" type="stmt"/>
-        <line num="91" count="2" type="stmt"/>
-        <line num="95" count="2" type="stmt"/>
-        <line num="100" count="18" type="stmt"/>
-        <line num="103" count="1" type="stmt"/>
+        <line num="5" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="10" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="15" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="12" type="cond" truecount="3" falsecount="0"/>
+        <line num="23" count="12" type="stmt"/>
+        <line num="27" count="18" type="stmt"/>
+        <line num="28" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="10" type="stmt"/>
+        <line num="31" count="5" type="stmt"/>
+        <line num="32" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="68" count="18" type="stmt"/>
+        <line num="69" count="18" type="stmt"/>
+        <line num="74" count="18" type="stmt"/>
+        <line num="75" count="14" type="stmt"/>
+        <line num="76" count="11" type="cond" truecount="4" falsecount="0"/>
+        <line num="77" count="9" type="stmt"/>
+        <line num="78" count="9" type="stmt"/>
+        <line num="81" count="2" type="stmt"/>
+        <line num="85" count="2" type="stmt"/>
+        <line num="90" count="18" type="stmt"/>
+        <line num="93" count="1" type="stmt"/>
       </file>
     </package>
   </project>

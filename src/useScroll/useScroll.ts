@@ -1,32 +1,9 @@
 import { useEffect, useCallback, useRef, RefObject } from 'react';
-// import { notifier } from '../useNotifier/useNotifier';
+import { ScrollPayload, ScrollState, ScrollProps } from '../types';
 import { useSmartReducer } from '../useSmartReducer';
 
-// action
 export const SET_SCROLL = 'SET_SCROLL';
-
-// event
 export const SCROLL_CHANGE = 'scroll.change';
-
-export interface ScrollState {
-  view: {
-    width: number;
-    height: number;
-  };
-  triggerPixel: number;
-  top: number;
-  screenCount: number;
-  currentScreen: number;
-  documentProgress: number;
-  screenProgress: number;
-  isBottom: boolean;
-}
-
-type ScrollPayload = [RefObject<HTMLDivElement>, ScrollState];
-
-interface ScrollProps {
-  trigger?: number;
-}
 
 export const defaultScroll: ScrollState = {
   view: {
@@ -74,9 +51,10 @@ export default function useScroll({
   trigger = 0.0,
 }: ScrollProps): ScrollPayload {
   const refElement: RefObject<HTMLDivElement> = useRef(null);
-  const [scrollState, setState] = useSmartReducer(defaultScroll, reducer);
-
-  // trigger = Math.max(0.0, Math.min(0.99, trigger));
+  const [scrollState, setState] = useSmartReducer<ScrollState>(
+    defaultScroll,
+    reducer
+  );
 
   useEffect(() => {
     const handler = function () {
