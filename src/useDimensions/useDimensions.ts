@@ -10,12 +10,13 @@ interface Dimensions {
     top: number;
     bottom: number;
   };
-  canvasWidth?: number;
-  canvasHeight?: number;
+  canvasWidth: number;
+  canvasHeight: number;
 }
 
-type DimensionsPayload<T> = [
-  React.RefObject<T>,
+type DimensionsPayload = [
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  React.RefObject<any>,
   Dimensions,
   (type: string, value?: unknown) => void
 ];
@@ -33,14 +34,40 @@ const DEFAULT_DIMENSIONS: Dimensions = {
   },
 };
 
-export default function useDimensions<T>(
+function subscribeToResize(refEl, dispatchFn) {
+  let resizeTimer;
+  const handleResize = () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      dispatchFn('resize', {
+        width: refEl.clientWidth,
+        height: refEl.clientHeight,
+      });
+    }, 200);
+  };
+  window.addEventListener('resize', handleResize);
+  dispatchFn('resize', {
+    width: refEl.clientWidth,
+    height: refEl.clientHeight,
+  });
+
+  return () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = null;
+    window.removeEventListener('resize', handleResize);
+  };
+}
+
+export default function useDimensions(
   passedSettings: Partial<Dimensions> = null
-): DimensionsPayload<T> {
-  const ref = useRef<T>(null);
+): DimensionsPayload {
+  const ref = useRef(null);
 
   const combined = {
     width: passedSettings?.width || DEFAULT_DIMENSIONS.width,
     height: passedSettings?.height || DEFAULT_DIMENSIONS.height,
+    canvasWidth: 0,
+    canvasHeight: 0,
     margin: {
       left: passedSettings?.margin?.left || DEFAULT_DIMENSIONS.margin.left,
       right: passedSettings?.margin?.right || DEFAULT_DIMENSIONS.margin.right,
@@ -89,28 +116,4 @@ function dimensionsReducer(state: Dimensions, action: Action) {
   if (action.type === 'marginBottom')
     return { ...state, margin: { ...state.margin, bottom: action.value } };
   return null;
-}
-
-function subscribeToResize(refEl, dispatchFn) {
-  let resizeTimer;
-  const handleResize = () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      dispatchFn('resize', {
-        width: refEl.clientWidth,
-        height: refEl.clientHeight,
-      });
-    }, 200);
-  };
-  window.addEventListener('resize', handleResize);
-  dispatchFn('resize', {
-    width: refEl.clientWidth,
-    height: refEl.clientHeight,
-  });
-
-  return () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = null;
-    window.removeEventListener('resize', handleResize);
-  };
 }
