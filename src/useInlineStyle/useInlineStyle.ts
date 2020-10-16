@@ -45,35 +45,34 @@ export default function useInlineStyle<T extends HTMLElement>(
     props,
   ]);
 
-  useEffect(() => {
-    let el: T;
-    const pointerOver = () => setStyle('hover', true);
-    const pointerOut = () => setStyle('hover', false);
-    const focus = () => setStyle('focus', true);
-    const blur = () => setStyle('focus', false);
-    const pointerDown = () => setStyle('active', true);
-    const pointerUp = () => setStyle('active', false);
-
+  const subscribeToEvents = useCallback(() => {
     if (ref.current) {
-      el = ref.current;
-      el.addEventListener('pointerover', pointerOver);
-      el.addEventListener('pointerout', pointerOut);
-      el.addEventListener('focus', focus);
-      el.addEventListener('blur', blur);
-      el.addEventListener('pointerdown', pointerDown);
-      el.addEventListener('pointerup', pointerUp);
+      const pointerOver = () => setStyle('hover', true);
+      const pointerOut = () => setStyle('hover', false);
+      const focus = () => setStyle('focus', true);
+      const blur = () => setStyle('focus', false);
+      const pointerDown = () => setStyle('active', true);
+      const pointerUp = () => setStyle('active', false);
+
+      ref.current.addEventListener('pointerover', pointerOver);
+      ref.current.addEventListener('pointerout', pointerOut);
+      ref.current.addEventListener('focus', focus);
+      ref.current.addEventListener('blur', blur);
+      ref.current.addEventListener('pointerdown', pointerDown);
+      ref.current.addEventListener('pointerup', pointerUp);
+
+      return () => {
+        ref.current.removeEventListener('pointerover', pointerOver);
+        ref.current.removeEventListener('pointerout', pointerOut);
+        ref.current.removeEventListener('focus', focus);
+        ref.current.removeEventListener('blur', blur);
+        ref.current.removeEventListener('pointerdown', pointerDown);
+        ref.current.removeEventListener('pointerup', pointerUp);
+      };
     }
-    return () => {
-      if (el) {
-        el.removeEventListener('pointerover', pointerOver);
-        el.removeEventListener('pointerout', pointerOut);
-        el.removeEventListener('focus', focus);
-        el.removeEventListener('blur', blur);
-        el.removeEventListener('pointerdown', pointerDown);
-        el.removeEventListener('pointerup', pointerUp);
-      }
-    };
   }, [ref, setStyle]);
+
+  useEffect(subscribeToEvents, []);
 
   return [ref, style];
 }
