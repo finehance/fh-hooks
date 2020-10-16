@@ -1,6 +1,7 @@
 export interface Action {
   type: string;
-  value: unknown;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  value?: any;
 }
 
 export interface StyleState {

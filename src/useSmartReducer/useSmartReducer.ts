@@ -1,11 +1,7 @@
 import { Reducer, useMemo, useReducer } from 'react';
 import { Action } from '../types';
 
-function updateObject(
-  object: Record<string, unknown>,
-  key: string,
-  value: unknown
-): Record<string, unknown> {
+function updateObject<T>(object: T, key: string, value: unknown): T {
   if (has(object, key)) {
     return { ...object, [key]: value };
   }
@@ -15,26 +11,20 @@ function updateObject(
   return object;
 }
 
-function has(object: Record<string, unknown>, key: string): boolean {
+function has<T>(object: T, key: string): boolean {
   return isObject(object) && Object.prototype.hasOwnProperty.call(object, key);
 }
 
-function isObject(object: Record<string, unknown>): boolean {
+function isObject<T>(object: T): boolean {
   return typeof object === 'object' && !Array.isArray(object) && !!object;
 }
 
-function baseReducer(
-  state: Record<string, unknown>,
-  action: Action
-): Record<string, unknown> {
+function baseReducer<T>(state: T, action: Action): T {
   return updateObject(state, action.type, action.value);
 }
 
-function makeReducer(customReducer?: Reducer<Record<string, unknown>, Action>) {
-  return function reducerFn(
-    state: Record<string, unknown>,
-    action: Action
-  ): Record<string, unknown> {
+function makeReducer<T>(customReducer?: Reducer<T, Action>) {
+  return function reducerFn(state: T, action: Action): T {
     if (typeof customReducer === 'undefined') {
       return baseReducer(state, action);
     }
@@ -71,15 +61,15 @@ function makeReducer(customReducer?: Reducer<Record<string, unknown>, Action>) {
  */
 
 // TODO make it optionally generic type for state T
-function useSmartReducer(
-  initialState: Record<string, unknown>,
-  customReducer?: Reducer<Record<string, unknown>, Action>
-): [
-  state: Record<string, unknown>,
-  setState: (type: string, value?: unknown) => void
-] {
+function useSmartReducer<T>(
+  initialState: T,
+  customReducer?: Reducer<T, Action>
+): [state: T, setState: (type: string, value?: unknown) => void] {
   const reducer = makeReducer(customReducer);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer<Reducer<T, Action>>(
+    reducer,
+    initialState
+  );
 
   const setState = useMemo(
     () => (type: string, value?: unknown): void => {
