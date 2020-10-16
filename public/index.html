@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
+    ></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      (function (global, factory) {
+        typeof exports === "object" && typeof module !== "undefined"
+          ? factory(exports, require("react"))
+          : typeof define === "function" && define.amd
+          ? define(["exports", "react"], factory)
+          : ((global =
+              typeof globalThis !== "undefined" ? globalThis : global || self),
+            factory((global.FH = {}), global.React));
+      })(this, function (exports, react) {
+        "use strict";
+
+        /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation.
+
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
+
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
+    ***************************************************************************** */
+
+        var __assign = function () {
+          __assign =
+            Object.assign ||
+            function __assign(t) {
+              for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s)
+                  if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+              }
+              return t;
+            };
+          return __assign.apply(this, arguments);
+        };
+
+        function updateObject(object, key, value) {
+          var _a;
+          if (has(object, key)) {
+            return __assign(
+              __assign({}, object),
+              ((_a = {}), (_a[key] = value), _a)
+            );
+          }
+          console.error(
+            "updateObject: Unrecognized property name: '" +
+              key +
+              "'. State was not modified."
+          );
+          return object;
+        }
+        function has(object, key) {
+          return (
+            isObject(object) &&
+            Object.prototype.hasOwnProperty.call(object, key)
+          );
+        }
+        function isObject(object) {
+          return (
+            typeof object === "object" && !Array.isArray(object) && !!object
+          );
+        }
+        function baseReducer(state, action) {
+          return updateObject(state, action.type, action.value);
+        }
+        function makeReducer(customReducer) {
+          return function reducerFn(state, action) {
+            if (typeof customReducer === "undefined") {
+              return baseReducer(state, action);
+            }
+            var newState = customReducer(state, action);
+            if (newState === null) {
+              return baseReducer(state, action);
+            }
+            return newState;
+          };
+        }
+        /**
+         * Hook works with object '{}' state only.
+         * Similarly to React useState and useReducer retaining all advantages of both and less verbosity than useReducer.
+         *
+         * How it works:
+         * the hook returns [state, setState].
+         * setState accepts two arguments (type, value), where:
+         * - type is the key of the state or reducer's action name,
+         * - value is the new value of the portion of the state defined by type.
+         * setState returns new state as provided by custom reducer.
+         *
+         * Rules of thumb:
+         * - If customReducer is not provided it will check if first argument of setState (action.type) matches with any key in the initialState.
+         * - If action.type matches with any state key then the hook will update the state with given second argument of setState (action.value).
+         * - If action.value is not provided and customReducer is not given it will not change state.
+         * - If customReducer is provided and it returns null as default case, then the baseReducer will be used as default.
+         * - If customReducer is provided and it returns unchanged state as default case then baseReducer will not be used and state will be handled
+         * exactly as per provided reducer.
+         * @param initialState initial state of the reducer.
+         * @param customReducer optional, custom reducer functiom
+         *
+         * @return [ state, setState ], where state is current state and setState is function that accepts (type: string, value?: any = null);
+         */
+        // TODO make it optionally generic type for state T
+        function useSmartReducer(initialState, customReducer) {
+          var reducer = makeReducer(customReducer);
+          var _a = react.useReducer(reducer, initialState),
+            state = _a[0],
+            dispatch = _a[1];
+          var setState = react.useMemo(
+            function () {
+              return function (type, value) {
+                if (customReducer || typeof value !== "undefined") {
+                  dispatch({ type: type, value: value });
+                  return;
+                }
+                console.error(
+                  "SmartReducer: Missing action.value for '" +
+                    type +
+                    "'. Provide the value or pass a custom reducer."
+                );
+                return;
+              };
+            },
+            [dispatch, customReducer]
+          );
+          return [state, setState];
+        }
+
+        var initialState = {
+          hover: false,
+          active: false,
+          focus: false,
+        };
+        function styleReducer(state, action) {
+          switch (action.type) {
+            case "hover":
+              return __assign(__assign({}, state), { hover: action.value });
+            case "focus":
+              return __assign(__assign({}, state), { focus: action.value });
+            case "active":
+              return __assign(__assign({}, state), { active: action.value });
+            default:
+              return state;
+          }
+        }
+        function useInlineStyle(styleFn, props) {
+          var ref = react.useRef(null);
+          var _a = react.useReducer(styleReducer, initialState),
+            styleState = _a[0],
+            dispatch = _a[1];
+          var setStyle = react.useCallback(
+            function (type, value) {
+              return dispatch({ type: type, value: value });
+            },
+            [dispatch]
+          );
+          var style = react.useMemo(
+            function () {
+              return styleFn(styleState, props);
+            },
+            [styleFn, styleState, props]
+          );
+          react.useEffect(
+            function () {
+              var el;
+              var pointerOver = function () {
+                return setStyle("hover", true);
+              };
+              var pointerOut = function () {
+                return setStyle("hover", false);
+              };
+              var focus = function () {
+                return setStyle("focus", true);
+              };
+              var blur = function () {
+                return setStyle("focus", false);
+              };
+              var pointerDown = function () {
+                return setStyle("active", true);
+              };
+              var pointerUp = function () {
+                return setStyle("active", false);
+              };
+              if (ref.current) {
+                el = ref.current;
+                el.addEventListener("pointerover", pointerOver);
+                el.addEventListener("pointerout", pointerOut);
+                el.addEventListener("focus", focus);
+                el.addEventListener("blur", blur);
+                el.addEventListener("pointerdown", pointerDown);
+                el.addEventListener("pointerup", pointerUp);
+              }
+              return function () {
+                if (el) {
+                  el.removeEventListener("pointerover", pointerOver);
+                  el.removeEventListener("pointerout", pointerOut);
+                  el.removeEventListener("focus", focus);
+                  el.removeEventListener("blur", blur);
+                  el.removeEventListener("pointerdown", pointerDown);
+                  el.removeEventListener("pointerup", pointerUp);
+                }
+              };
+            },
+            [ref, setStyle]
+          );
+          return [ref, style];
+        }
+
+        exports.useInlineStyle = useInlineStyle;
+        exports.useSmartReducer = useSmartReducer;
+
+        Object.defineProperty(exports, "__esModule", { value: true });
+      });
+    </script>
+    <script>
+      function styleFn(styleState, props) {
+        return {
+          color: styleState.hover ? "red" : "black",
+          cursor: "pointer",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: "8px",
+          border: styleState.hover ? "2px solid red" : "2px solid black",
+          width: props.isMobile ? "90%" : "200px",
+          height: "30px",
+          textAlign: "center",
+          userSelect: "none",
+          transition: "0.5s all",
+        };
+      }
+
+      export default function App() {
+        const [isMobile, setMobile] = React.useState(false);
+        const [state, setState] = useSmartReducer({
+          value: 5,
+        });
+        const [ref, style] = useInlineStyle(styleFn, { isMobile });
+
+        const subscribeToResize = () => {
+          console.log("subscribe to resize");
+          const handleResize = () => {
+            console.log("resize effect");
+            setMobile(window.innerWidth < 512);
+          };
+          window.addEventListener("resize", handleResize);
+
+          return () => {
+            console.log("unsub");
+            window.removeEventListener("resize", handleResize);
+          };
+        };
+        React.useEffect(subscribeToResize, []);
+
+        return (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexFlow: "column nowrap",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <p>{JSON.stringify(state)}</p>
+            <div
+              ref={ref}
+              style={style}
+              onClick={() => setState("value", Math.random().toFixed(2))}
+            >
+              click
+            </div>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>

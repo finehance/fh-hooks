@@ -28,11 +28,11 @@ function styleReducer(state: StyleState, action: Action): StyleState {
   }
 }
 
-export default function useInlineStyle(
+export default function useInlineStyle<T extends HTMLElement>(
   styleFn: StylingFn,
-  props: Record<string, unknown>
-): [ref: RefObject<unknown>, style: Record<string, unknown>] {
-  const ref = useRef<HTMLElement>(null);
+  props?: Record<string, unknown>
+): [ref: RefObject<T>, style: Record<string, unknown>] {
+  const ref = useRef<T>(null);
   const [styleState, dispatch] = useReducer(styleReducer, initialState);
   const setStyle = useCallback(
     (type: string, value: unknown) => dispatch({ type, value }),
@@ -46,7 +46,7 @@ export default function useInlineStyle(
   ]);
 
   useEffect(() => {
-    let el: HTMLElement;
+    let el: T;
     const pointerOver = () => setStyle('hover', true);
     const pointerOut = () => setStyle('hover', false);
     const focus = () => setStyle('focus', true);
@@ -64,12 +64,14 @@ export default function useInlineStyle(
       el.addEventListener('pointerup', pointerUp);
     }
     return () => {
-      el.removeEventListener('pointerover', pointerOver);
-      el.removeEventListener('pointerout', pointerOut);
-      el.removeEventListener('focus', focus);
-      el.removeEventListener('blur', blur);
-      el.removeEventListener('pointerdown', pointerDown);
-      el.removeEventListener('pointerup', pointerUp);
+      if (el) {
+        el.removeEventListener('pointerover', pointerOver);
+        el.removeEventListener('pointerout', pointerOut);
+        el.removeEventListener('focus', focus);
+        el.removeEventListener('blur', blur);
+        el.removeEventListener('pointerdown', pointerDown);
+        el.removeEventListener('pointerup', pointerUp);
+      }
     };
   }, [ref, setStyle]);
 

@@ -20,6 +20,15 @@ export default {
       format: 'esm',
       sourcemap: false,
     },
+    {
+      file: 'dist/bundle.umd.js',
+      format: 'umd',
+      name: 'FH',
+      globals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+      },
+    },
   ],
   plugins: [
     babel({
