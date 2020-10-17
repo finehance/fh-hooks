@@ -8,11 +8,11 @@ const DEFAULT_BREAKPOINTS = {
   desktop: 1180,
 };
 
-function getScreenData(breakpoints: any, sizes: any[]): ScreenProps {
+type BreakPoints = typeof DEFAULT_BREAKPOINTS;
+
+function getScreenData(breakpoints: BreakPoints, sizes: number[]): ScreenProps {
   const width = globalThis.innerWidth || 1280;
-
-  const size = sizes.find(([_, size]) => size < width)[0];
-
+  const size = sizes.find((size) => size < width)[0];
   const orientation = width > globalThis.innerHeight ? 'landscape' : 'portrait';
 
   const screenIsAtLeast = (
@@ -46,9 +46,11 @@ function getScreenData(breakpoints: any, sizes: any[]): ScreenProps {
   };
 }
 
-export default function useResponsiveness(breakpoints = DEFAULT_BREAKPOINTS) {
-  const sizes = Object.entries(breakpoints).sort(
-    ([aKey, aValue], [bKey, bValue]) => bValue - aValue
+export default function useResponsiveness(
+  breakpoints: BreakPoints = DEFAULT_BREAKPOINTS
+): ScreenProps {
+  const sizes = Object.values(breakpoints).sort(
+    (aValue, bValue) => bValue - aValue
   );
 
   if (sizes[sizes.length - 1][1] !== 0) {
