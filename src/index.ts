@@ -5,3 +5,4 @@ export * from './useInterval';
 export * from './useResponsiveness';
 export * from './useScroll';
 export * from './useSmartReducer';
+export * from './types';
