@@ -1,11 +1,8 @@
 import { useEffect, useCallback, useRef, RefObject } from 'react';
-import { ScrollPayload, ScrollState, ScrollProps } from '..';
+import { ScrollPayload, ScrollState, ScrollProps, Action } from '..';
 import { useSmartReducer } from '../useSmartReducer';
 
-export const SET_SCROLL = 'SET_SCROLL';
-export const SCROLL_CHANGE = 'scroll.change';
-
-export const defaultScroll: ScrollState = {
+export const defaultScroll = {
   view: {
     width: globalThis.innerWidth,
     height: globalThis.innerHeight,
@@ -19,7 +16,9 @@ export const defaultScroll: ScrollState = {
   isBottom: false,
 };
 
-function reducer(state, action) {
+const SET_SCROLL = 'SET_SCROLL';
+
+function reducer(state: ScrollState, action: Action) {
   switch (action.type) {
     case SET_SCROLL: {
       return {
@@ -43,9 +42,7 @@ function reducer(state, action) {
  *
  * 4) enables subscribing to ScrollState changes
  *
- * @param documentHeight total height of the document usually multiply of height of screen view
- * @param notify a flag whether notify before returning new scroll state or not
- * @param triggerPercent shift of the screen change trigger
+ * @param trigger shift of the screen change trigger
  */
 export default function useScroll({
   trigger = 0.0,
@@ -99,9 +96,7 @@ function calculateScrollState(
   const viewScrollPosition = (window.scrollY + triggerPixel) / view.height;
   const currentScreen = Math.floor(viewScrollPosition);
   const screenProgress = viewScrollPosition - currentScreen;
-
   const documentProgress = window.scrollY / docHeight;
-
   const isBottom = view.height - docHeight === bbox.y;
 
   return {
