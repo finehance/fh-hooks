@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StylingFn } from '../types';
+import { StylingFn } from '..';
 import useInlineStyle from './useInlineStyle';
 
 interface TestProps {

@@ -1,6 +1,6 @@
 import { useRef, useMemo, useEffect, RefObject, CSSProperties } from 'react';
 
-import { StyleState, StylingFn } from '../types';
+import { StyleState, StylingFn } from '..';
 import { useSmartReducer } from '../useSmartReducer';
 
 const initialState: StyleState = {

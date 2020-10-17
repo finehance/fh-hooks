@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { ScreenProps } from '../types';
+import { ScreenProps } from '..';
 
 const DEFAULT_BREAKPOINTS = {
   xs: 0,

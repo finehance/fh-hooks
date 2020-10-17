@@ -1,5 +1,5 @@
 import { Reducer, useMemo, useReducer } from 'react';
-import { Action } from '../types';
+import { Action } from '..';
 
 function updateObject<T>(object: T, key: string, value: unknown): T {
   if (has(object, key)) {
@@ -63,7 +63,7 @@ function makeReducer<T>(customReducer?: Reducer<T, Action>) {
 // TODO make it optionally generic type for state T
 function useSmartReducer<T>(
   initialState: T,
-  customReducer?: Reducer<T, Action>
+  customReducer?: Reducer<T | null, Action>
 ): [state: T, setState: (type: string, value?: unknown) => void] {
   const reducer = makeReducer(customReducer);
   const [state, dispatch] = useReducer<Reducer<T, Action>>(

@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { Action, Dimensions, DimensionsPayload } from '../types';
+import { Action, Dimensions, DimensionsPayload } from '..';
 import { useSmartReducer } from '../useSmartReducer';
 
 const DEFAULT_DIMENSIONS: Dimensions = {
@@ -83,7 +83,10 @@ export default function useDimensions(
   return [ref, enhanced, setDimensions];
 }
 
-function dimensionsReducer(state: Dimensions, action: Action) {
+function dimensionsReducer(
+  state: Dimensions,
+  action: Action
+): Dimensions | null {
   if (action.type === 'resize')
     return { ...state, width: action.value.width, height: action.value.height };
   if (action.type === 'margin')

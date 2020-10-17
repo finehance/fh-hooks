@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useRef, RefObject } from 'react';
-import { ScrollPayload, ScrollState, ScrollProps } from '../types';
+import { ScrollPayload, ScrollState, ScrollProps } from '..';
 import { useSmartReducer } from '../useSmartReducer';
 
 export const SET_SCROLL = 'SET_SCROLL';

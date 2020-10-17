@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Action } from '../types';
+import { Action } from '..';
 import useSmartReducer from './useSmartReducer';
 
 interface TestState {
