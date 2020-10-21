@@ -1,8 +1,8 @@
 import { useEffect, useCallback, useRef, RefObject } from 'react';
-import { ScrollPayload, ScrollState, ScrollProps, Action } from '..';
+import { ScrollPayload, ScrollState, Action, Nullable } from '..';
 import { useSmartReducer } from '../useSmartReducer';
 
-export const defaultScroll = {
+export const defaultScroll: ScrollState = {
   view: {
     width: globalThis.innerWidth,
     height: globalThis.innerHeight,
@@ -18,7 +18,7 @@ export const defaultScroll = {
 
 const SET_SCROLL = 'SET_SCROLL';
 
-function reducer(state: ScrollState, action: Action) {
+function reducer(state: ScrollState, action: Action): Nullable<ScrollState> {
   switch (action.type) {
     case SET_SCROLL: {
       return {
@@ -44,10 +44,12 @@ function reducer(state: ScrollState, action: Action) {
  *
  * @param trigger shift of the screen change trigger
  */
-export default function useScroll({
-  trigger = 0.0,
-}: ScrollProps): ScrollPayload {
-  const refElement: RefObject<HTMLDivElement> = useRef(null);
+
+const defaultProps = { trigger: 0.0 };
+export default function useScroll<T extends HTMLElement>({
+  trigger,
+} = defaultProps): ScrollPayload {
+  const refElement: RefObject<T> = useRef(null);
   const [scrollState, setState] = useSmartReducer<ScrollState>(
     defaultScroll,
     reducer

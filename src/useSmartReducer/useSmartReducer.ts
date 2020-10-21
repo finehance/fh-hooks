@@ -1,5 +1,5 @@
 import { Reducer, useMemo, useReducer } from 'react';
-import { Action } from '..';
+import { Action, StateSetter } from '..';
 
 function updateObject<T>(object: T, key: string, value: unknown): T {
   if (has(object, key)) {
@@ -60,11 +60,10 @@ function makeReducer<T>(customReducer?: Reducer<T, Action>) {
  * @return [ state, setState ], where state is current state and setState is function that accepts (type: string, value?: any = null);
  */
 
-// TODO make it optionally generic type for state T
 function useSmartReducer<T>(
   initialState: T,
   customReducer?: Reducer<T | null, Action>
-): [state: T, setState: (type: string, value?: unknown) => void] {
+): [state: T, setState: StateSetter] {
   const reducer = makeReducer(customReducer);
   const [state, dispatch] = useReducer<Reducer<T, Action>>(
     reducer,
@@ -72,17 +71,18 @@ function useSmartReducer<T>(
   );
 
   const setState = useMemo(
-    () => (type: string, value?: unknown): void => {
-      if (customReducer || typeof value !== 'undefined') {
-        dispatch({ type, value });
+    function callback(): StateSetter {
+      return function (type: string, value?: unknown): void {
+        if (customReducer || typeof value !== 'undefined') {
+          dispatch({ type, value });
+          return;
+        }
+        console.error(
+          `SmartReducer: Missing action.value for '${type}'. Provide the value or pass a custom reducer.`
+        );
+
         return;
-      }
-
-      console.error(
-        `SmartReducer: Missing action.value for '${type}'. Provide the value or pass a custom reducer.`
-      );
-
-      return;
+      };
     },
     [dispatch, customReducer]
   );

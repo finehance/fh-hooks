@@ -15,11 +15,12 @@ function customReducer(state: TestState, action: Action) {
       return null;
   }
 }
-export default function TestInlineStyle(): React.ReactElement {
+export default function SmartReducerTest(): React.ReactElement {
   const [state, setState] = useSmartReducer<TestState>(
     initialState,
     customReducer
   );
+
   return (
     <div>
       <p>{JSON.stringify(state)}</p>

@@ -14,6 +14,10 @@ export interface Action {
   value?: any;
 }
 
+export type Nullable<T> = T | null;
+
+export type StateSetter = (type: string, value?: unknown) => void;
+
 export interface StyleState {
   hover: boolean;
   focus: boolean;
@@ -70,4 +74,4 @@ export interface ScrollProps {
   trigger?: number;
 }
 
-export type ScrollPayload = [RefObject<HTMLDivElement>, ScrollState];
+export type ScrollPayload = [RefObject<unknown>, ScrollState];
