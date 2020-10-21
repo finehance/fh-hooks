@@ -1,7 +1,8 @@
-sudo: false
+os: linux
+dist: xenial
 language: node_js
 node_js:
-  - 10
+  - 12.13.0
 
 script:
   - npm run lint
