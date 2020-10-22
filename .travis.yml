@@ -12,7 +12,7 @@ deploy:
   provider: npm
   email: $EMAIL_ADDRESS
   api_key:
-    secure: $NPM_ENCRYPTED_KEY
+    secure: qFsTsYrwCEhv0czMwjbw+RzSpieWzh0OWp4trDnzCtG4VrakIff/Ahl9d1KuwYYpfkkxMMlKXnSgBog2gSQ74hhNKFrpmC0f9xnGnn0JzHIRIb+f6zMZny+Xiw0dNqUpVppMDaeVCEDBCAS5CilTAWSSCzusweF49WkAQvJ/j4Rxpk/27zepGxPEt8iFvMsymo9UPzbNfRzaJ+6lLc2xJCGBwbzQTBmeODOOtgfF02PxdlBMQqziUT1Wd6ZjLs1Oujv/4kbSlm04JqD3c8uRvPCt9JwultBgcKYiMgIV4Poqbvhnx+0sAO3q3rXRulnHqbW+Y3NZWnkl+jGvpffKTmxmun1QVUb+z16dGFSiRQXpFaTrVgXuTYX1VJ+38Ss/C9ZvG0ipBnflstN96YOK3buy51nyblb0i+RD4KSzlro3pRNKSVdq8ib/fbdVNSA5Pt3wItABgGyv2fq9pGlAouL7gerky9iW72dQYLVjSLyP9etaAREwYP62rmQZiGTzT6M06jYHWtXA2z1rmoj4NmFm1vOxtXhb31xGLuWtLcU0um+1UDPrYOJCPuPNnyjP9Wr50M20pYPpB3i419W+eCdvYvIfKovVuYXOgilt6dNS1n6jDBgTqTmmrNtwjC54DpOGCXHqjcflyVCObzSuVTTEMHIAlfROH+C04BqBv3s=
   on:
     tags: true
     repo: stopyransky/fh-hooks
