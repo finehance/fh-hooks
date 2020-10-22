@@ -3,10 +3,17 @@ dist: xenial
 language: node_js
 node_js:
   - 12.13.0
-
 script:
   - npm run lint
   - npm run test:coveralls
-
 notifications:
   email: false
+deploy:
+  provider: npm
+  email: $EMAIL_ADDRESS
+  api_key:
+    secure: $NPM_KEY_ENCRYPT
+  on:
+    tags: true
+    repo: stopyransky/fh-hooks
+  skip_cleanup: 'true'
