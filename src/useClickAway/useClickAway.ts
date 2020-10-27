@@ -1,15 +1,15 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 
-interface ClickAwayPayload {
-  ref: React.RefObject<unknown>;
+interface ClickAwayPayload<T> {
+  ref: React.RefObject<T>;
   active: boolean;
   setActive: (v: boolean) => void;
   toggle: () => void;
 }
 
-export default function useClickAway<
-  T extends HTMLElement
->(): ClickAwayPayload {
+export default function useClickAway<T extends HTMLElement>(): ClickAwayPayload<
+  T
+> {
   const [active, setActive] = useState(false);
   const ref = useRef<T>(null);
 
@@ -24,12 +24,12 @@ export default function useClickAway<
 
   useEffect(() => {
     if (active) {
-      document.addEventListener('mousedown', handleClickAway);
+      document.addEventListener('pointerdown', handleClickAway);
     } else {
-      document.removeEventListener('mousedown', handleClickAway);
+      document.removeEventListener('pointerdown', handleClickAway);
     }
     return () => {
-      document.removeEventListener('mousedown', handleClickAway);
+      document.removeEventListener('pointerdown', handleClickAway);
     };
   }, [active]);
 

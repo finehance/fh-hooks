@@ -1,6 +1,5 @@
-import { useEffect, useCallback, useRef, RefObject } from 'react';
+import { useEffect, useCallback, useRef, RefObject, useReducer } from 'react';
 import { ScrollPayload, ScrollState, Action, Nullable } from '..';
-import { useSmartReducer } from '../useSmartReducer';
 
 export const defaultScroll: ScrollState = {
   view: {
@@ -50,10 +49,7 @@ export default function useScroll<T extends HTMLElement>({
   trigger,
 } = defaultProps): ScrollPayload {
   const refElement: RefObject<T> = useRef(null);
-  const [scrollState, setState] = useSmartReducer<ScrollState>(
-    defaultScroll,
-    reducer
-  );
+  const [scrollState, dispatch] = useReducer(reducer, defaultScroll);
 
   useEffect(() => {
     const handler = function () {
@@ -69,8 +65,11 @@ export default function useScroll<T extends HTMLElement>({
   const onScroll = useCallback(() => {
     const docHeight = refElement.current?.clientHeight;
     const bbox = refElement.current?.getBoundingClientRect();
-    setState(SET_SCROLL, calculateScrollState(bbox, docHeight, trigger));
-  }, [setState, trigger]);
+    dispatch({
+      type: SET_SCROLL,
+      value: calculateScrollState(bbox, docHeight, trigger),
+    });
+  }, [dispatch, trigger]);
 
   useEffect(() => {
     window.addEventListener('resize', onScroll);
