@@ -36,7 +36,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
@@ -44,6 +45,86 @@
       "npm run lint:fix",
       "npm run test:staged"
     ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-angular"
+    ],
+    "rules": {
+      "body-leading-blank": [
+        1,
+        "always"
+      ],
+      "body-max-line-length": [
+        2,
+        "always",
+        100
+      ],
+      "footer-leading-blank": [
+        1,
+        "always"
+      ],
+      "footer-max-line-length": [
+        2,
+        "always",
+        100
+      ],
+      "header-max-length": [
+        2,
+        "always",
+        100
+      ],
+      "scope-case": [
+        2,
+        "always",
+        "lower-case"
+      ],
+      "subject-case": [
+        2,
+        "never",
+        [
+          "sentence-case",
+          "start-case",
+          "pascal-case",
+          "upper-case"
+        ]
+      ],
+      "subject-empty": [
+        2,
+        "never"
+      ],
+      "subject-full-stop": [
+        2,
+        "never",
+        "."
+      ],
+      "type-case": [
+        2,
+        "always",
+        "lower-case"
+      ],
+      "type-empty": [
+        2,
+        "never"
+      ],
+      "type-enum": [
+        2,
+        "always",
+        [
+          "build",
+          "chore",
+          "ci",
+          "docs",
+          "feat",
+          "fix",
+          "perf",
+          "refactor",
+          "revert",
+          "style",
+          "test"
+        ]
+      ]
+    }
   },
   "release": {
     "branches": [
@@ -72,7 +153,8 @@
           "parserOpts": {
             "noteKeywords": [
               "BREAKING CHANGE",
-              "BREAKING CHANGES"
+              "BREAKING CHANGES",
+              "BREAKING"
             ]
           }
         }
@@ -104,6 +186,8 @@
     "@babel/core": "7.11.6",
     "@babel/preset-env": "7.11.5",
     "@babel/preset-react": "7.10.4",
+    "@commitlint/cli": "11.0.0",
+    "@commitlint/config-angular": "11.0.0",
     "@rollup/plugin-babel": "5.2.1",
     "@rollup/plugin-commonjs": "11.1.0",
     "@rollup/plugin-node-resolve": "7.1.3",
