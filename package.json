@@ -5,7 +5,7 @@
   "author": "Karol Stopyra",
   "repository": {
     "type": "git",
-    "url": "git@github.com:stopyransky/fh-hooks.git"
+    "url": "https://github.com/stopyransky/fh-hooks.git"
   },
   "homepage": "https://github.com/stopyransky/fh-hooks",
   "description": "Custom react hooks",
@@ -84,6 +84,15 @@
           "changelogTitle": "# Changelog\n\nAll notable changes to this project will be documented in this file. See\n[Conventional Commits](https://conventionalcommits.org) for commit guidelines."
         }
       ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md",
+            "package.json"
+          ]
+        }
+      ],
       "@semantic-release/npm"
     ]
   },
@@ -100,6 +109,7 @@
     "@rollup/plugin-node-resolve": "7.1.3",
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/commit-analyzer": "8.0.1",
+    "@semantic-release/git": "9.0.0",
     "@semantic-release/npm": "7.0.6",
     "@semantic-release/release-notes-generator": "9.0.1",
     "@testing-library/react": "11.1.0",
