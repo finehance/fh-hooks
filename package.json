@@ -8,7 +8,7 @@
     "url": "https://github.com/stopyransky/fh-hooks.git"
   },
   "homepage": "https://github.com/stopyransky/fh-hooks",
-  "description": "Custom react hooks",
+  "description": "A set of custom React hooks",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.esm.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,6 @@
     "npm": ">=6.14.8"
   },
   "scripts": {
-    "bump": "npm version patch",
     "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -165,5 +164,78 @@
     "moduleNameMapper": {
       "\\.css$": "<rootDir>/mocks/style.js"
     }
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/env",
+        {
+          "modules": false,
+          "targets": ">0.25%, ie 11, not op_mini all, not dead",
+          "node": 10
+        }
+      ],
+      "@babel/react"
+    ],
+    "env": {
+      "test": {
+        "presets": [
+          "@babel/env",
+          "@babel/react"
+        ]
+      }
+    }
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2020": true
+    },
+    "root": true,
+    "extends": [
+      "plugin:react/recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier/@typescript-eslint",
+      "plugin:prettier/recommended",
+      "plugin:jest/recommended"
+    ],
+    "plugins": [
+      "@typescript-eslint",
+      "react",
+      "react-hooks",
+      "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "rules": {},
+    "settings": {
+      "react": {
+        "version": "latest"
+      }
+    }
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": [
+          "**/*.css",
+          "**/*.scss",
+          "**/*.html",
+          "**/*.json"
+        ],
+        "options": {
+          "singleQuote": false
+        }
+      }
+    ]
   }
 }
