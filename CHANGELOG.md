@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/stopyransky/fh-hooks/compare/v1.4.0...v1.5.0) (2020-10-27)
+
+
+### Features
+
+* add commit linter and make husky to check commit message before commiting ([d3dffd2](https://github.com/stopyransky/fh-hooks/commit/d3dffd2b5d8665e96d2c555581f294a49ed91514))
+
 # [1.4.0](https://github.com/stopyransky/fh-hooks/compare/v1.3.9...v1.4.0) (2020-10-27)
 
 
