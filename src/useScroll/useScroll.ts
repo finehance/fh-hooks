@@ -47,7 +47,7 @@ function reducer(state: ScrollState, action: Action): Nullable<ScrollState> {
 const defaultProps = { trigger: 0.0 };
 export default function useScroll<T extends HTMLElement>({
   trigger,
-} = defaultProps): ScrollPayload {
+} = defaultProps): ScrollPayload<T> {
   const refElement: RefObject<T> = useRef(null);
   const [scrollState, dispatch] = useReducer(reducer, defaultScroll);
 
@@ -56,24 +56,27 @@ export default function useScroll<T extends HTMLElement>({
       window.scrollTo(0, 0);
     };
     window.addEventListener('onbeforeunload', handler);
-
     return () => {
       window.removeEventListener('onbeforeunload', handler);
     };
   }, []);
 
   const onScroll = useCallback(() => {
-    const docHeight = refElement.current?.clientHeight;
-    const bbox = refElement.current?.getBoundingClientRect();
-    dispatch({
-      type: SET_SCROLL,
-      value: calculateScrollState(bbox, docHeight, trigger),
-    });
-  }, [dispatch, trigger]);
+    if (refElement.current) {
+      const docHeight = refElement.current.clientHeight;
+      const bbox = refElement.current.getBoundingClientRect();
+      console.log(window.scrollY, docHeight, bbox);
+      dispatch({
+        type: SET_SCROLL,
+        value: calculateScrollState(bbox, docHeight, trigger),
+      });
+    }
+  }, [dispatch, trigger, refElement]);
 
   useEffect(() => {
     window.addEventListener('resize', onScroll);
     window.addEventListener('scroll', onScroll);
+    onScroll();
     return () => {
       window.removeEventListener('resize', onScroll);
       window.removeEventListener('scroll', onScroll);
@@ -83,7 +86,7 @@ export default function useScroll<T extends HTMLElement>({
   return [refElement, scrollState];
 }
 
-function calculateScrollState(
+export function calculateScrollState(
   bbox: DOMRect,
   docHeight: number,
   triggerPercent: number
@@ -98,7 +101,7 @@ function calculateScrollState(
   const currentScreen = Math.floor(viewScrollPosition);
   const screenProgress = viewScrollPosition - currentScreen;
   const documentProgress = window.scrollY / docHeight;
-  const isBottom = view.height - docHeight === bbox.y;
+  const isBottom = view.height - docHeight === bbox.top;
 
   return {
     view,

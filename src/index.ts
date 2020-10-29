@@ -74,4 +74,4 @@ export interface ScrollProps {
   trigger?: number;
 }
 
-export type ScrollPayload = [RefObject<unknown>, ScrollState];
+export type ScrollPayload<T> = [RefObject<T>, ScrollState];

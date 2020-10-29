@@ -1,1 +1,5 @@
-export { default as useScroll, defaultScroll } from './useScroll';
+export {
+  default as useScroll,
+  defaultScroll,
+  calculateScrollState,
+} from './useScroll';
