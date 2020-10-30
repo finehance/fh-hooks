@@ -65,7 +65,6 @@ export default function useScroll<T extends HTMLElement>({
     if (refElement.current) {
       const docHeight = refElement.current.clientHeight;
       const bbox = refElement.current.getBoundingClientRect();
-      console.log(window.scrollY, docHeight, bbox);
       dispatch({
         type: SET_SCROLL,
         value: calculateScrollState(bbox, docHeight, trigger),
