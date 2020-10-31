@@ -22,7 +22,7 @@ export default function TestInlineStyle(props: TestProps): React.ReactElement {
     props
   );
   return (
-    <div ref={ref} role="clicker" style={style}>
+    <div ref={ref} role='clicker' style={style}>
       test component
     </div>
   );

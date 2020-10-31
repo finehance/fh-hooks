@@ -6,12 +6,12 @@ export default function ClickAwayTest(): React.ReactElement {
 
   return (
     <div>
-      <div role="away">away</div>
-      <div role="container" ref={ref}>
-        <div role="button" onClick={toggle}>
+      <div role='away'>away</div>
+      <div role='container' ref={ref}>
+        <div role='button' onClick={toggle}>
           Click
         </div>
-        {active && <div className="content">content</div>}
+        {active && <div className='content'>content</div>}
       </div>
     </div>
   );

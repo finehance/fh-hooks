@@ -1,6 +1,6 @@
 {
   "name": "fh-hooks",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "MIT",
   "author": "Karol Stopyra",
   "repository": {
@@ -274,44 +274,16 @@
       }
     }
   },
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "es2020": true
-    },
-    "root": true,
-    "extends": [
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended",
-      "prettier/@typescript-eslint",
-      "plugin:prettier/recommended",
-      "plugin:jest/recommended"
-    ],
-    "plugins": [
-      "@typescript-eslint",
-      "react",
-      "react-hooks",
-      "prettier"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      },
-      "ecmaVersion": 12,
-      "sourceType": "module"
-    },
-    "rules": {},
-    "settings": {
-      "react": {
-        "version": "latest"
-      }
-    }
-  },
   "prettier": {
     "tabWidth": 2,
     "useTabs": false,
     "singleQuote": true,
+    "endOfLine": "lf",
+    "semi": true,
+    "jsxSingleQuote": true,
+    "jsxBracketSameLine": true,
+    "trailingComma": "es5",
+    "bracketSpacing": true,
     "overrides": [
       {
         "files": [
@@ -325,5 +297,59 @@
         }
       }
     ]
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "plugin:react/recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier/@typescript-eslint",
+      "plugin:prettier/recommended",
+      "plugin:jest/recommended"
+    ],
+    "plugins": [
+      "@typescript-eslint",
+      "react",
+      "react-hooks",
+      "prettier"
+    ],
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true,
+      "es2020": true
+    },
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
+    "rules": {
+      "react/prop-types": "off",
+      "prettier/prettier": "warn",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/interface-name-prefix": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/ban-ts-ignore": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-empty-function": "off",
+      "@typescript-eslint/no-var-requires": "off",
+      "no-console": "warn",
+      "react/display-name": "off",
+      "react/react-in-jsx-scope": "off",
+      "react-hooks/rules-of-hooks": "warn",
+      "react-hooks/exhaustive-deps": "warn"
+    },
+    "globals": {
+      "React": "writable"
+    }
   }
 }
