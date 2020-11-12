@@ -1,23 +1,6 @@
 import { Reducer, useMemo, useReducer } from 'react';
 import { Action, StateSetter } from '..';
-
-function updateObject<T>(object: T, key: string, value: unknown): T {
-  if (has(object, key)) {
-    return { ...object, [key]: value };
-  }
-  console.error(
-    `updateObject: Unrecognized property name: '${key}'. State was not modified.`
-  );
-  return object;
-}
-
-function has<T>(object: T, key: string): boolean {
-  return isObject(object) && Object.prototype.hasOwnProperty.call(object, key);
-}
-
-function isObject<T>(object: T): boolean {
-  return typeof object === 'object' && !Array.isArray(object) && !!object;
-}
+import { updateObject } from '../utils';
 
 function baseReducer<T>(state: T, action: Action): T {
   return updateObject(state, action.type, action.value);
@@ -77,8 +60,9 @@ function useSmartReducer<T>(
           dispatch({ type, value });
           return;
         }
+        // eslint-disable-next-line no-console
         console.error(
-          `SmartReducer: Missing action.value for '${type}'. Provide the value or pass a custom reducer.`
+          `(fh-hooks) SmartReducer: Missing action.value for '${type}'. Provide the value or pass a custom reducer.`
         );
 
         return;
