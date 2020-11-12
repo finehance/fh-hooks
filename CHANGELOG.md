@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/stopyransky/fh-hooks/compare/v2.0.2...v2.1.0) (2020-11-12)
+
+
+### Features
+
+* add useObjectArray hook, tests, and common utils ([26df8ef](https://github.com/stopyransky/fh-hooks/commit/26df8ef25b44a0ecee99004e603561c1f41fb931))
+
 ## [2.0.2](https://github.com/stopyransky/fh-hooks/compare/v2.0.1...v2.0.2) (2020-10-30)
 
 ## [2.0.1](https://github.com/stopyransky/fh-hooks/compare/v2.0.0...v2.0.1) (2020-10-29)
