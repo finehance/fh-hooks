@@ -7,9 +7,9 @@ interface ClickAwayPayload<T> {
   toggle: () => void;
 }
 
-export default function useClickAway<T extends HTMLElement>(): ClickAwayPayload<
-  T
-> {
+export default function useClickAway<
+  T extends HTMLElement
+>(): ClickAwayPayload<T> {
   const [active, setActive] = useState(false);
   const ref = useRef<T>(null);
 
