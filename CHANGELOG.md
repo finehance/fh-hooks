@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/stopyransky/fh-hooks/compare/v2.1.0...v2.1.1) (2021-10-11)
+
+
+### Bug Fixes
+
+* add CustomReducer type for valid TS syntax and linting ([27b65be](https://github.com/stopyransky/fh-hooks/commit/27b65be9c94d61e14281f68d0792a21fdb579f29))
+
 # [2.1.0](https://github.com/stopyransky/fh-hooks/compare/v2.0.2...v2.1.0) (2020-11-12)
 
 
