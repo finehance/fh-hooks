@@ -1,12 +1,12 @@
 import { Reducer, useMemo, useReducer } from 'react';
-import { Action, StateSetter } from '..';
+import { Action, CustomReducer, StateSetter } from '..';
 import { updateObject } from '../utils';
 
 function baseReducer<T>(state: T, action: Action): T {
   return updateObject(state, action.type, action.value);
 }
 
-function makeReducer<T>(customReducer?: Reducer<T, Action>) {
+function makeReducer<T>(customReducer?: CustomReducer<T, Action>) {
   return function reducerFn(state: T, action: Action): T {
     if (typeof customReducer === 'undefined') {
       return baseReducer(state, action);
@@ -43,9 +43,9 @@ function makeReducer<T>(customReducer?: Reducer<T, Action>) {
  * @return [ state, setState ], where state is current state and setState is function that accepts (type: string, value?: any = null);
  */
 
-function useSmartReducer<T>(
+export function useSmartReducer<T>(
   initialState: T,
-  customReducer?: Reducer<T | null, Action>
+  customReducer?: CustomReducer<T, Action>
 ): [state: T, setState: StateSetter] {
   const reducer = makeReducer(customReducer);
   const [state, dispatch] = useReducer<Reducer<T, Action>>(
@@ -73,5 +73,3 @@ function useSmartReducer<T>(
 
   return [state, setState];
 }
-
-export default useSmartReducer;

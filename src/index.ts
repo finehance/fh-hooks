@@ -15,6 +15,8 @@ export interface Action {
   value?: any;
 }
 
+export type CustomReducer<S, A> = (prevState: S, action: A) => S | null;
+
 export type Nullable<T> = T | null;
 
 export type StateSetter = (type: string, value?: unknown) => void;

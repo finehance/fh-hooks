@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { renderHook, act } from '@testing-library/react-hooks';
-import useSmartReducer from './useSmartReducer';
+import { useSmartReducer } from './useSmartReducer';
 
 test('should return [state, setState] array', () => {
   const initialState = { name: 'value' };

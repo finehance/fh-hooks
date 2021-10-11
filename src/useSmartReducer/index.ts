@@ -1,1 +1,1 @@
-export { default as useSmartReducer } from './useSmartReducer';
+export { useSmartReducer } from './useSmartReducer';
