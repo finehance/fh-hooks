@@ -1,7 +1,16 @@
 import { useRef, useMemo, useEffect, RefObject, CSSProperties } from 'react';
-
-import { StyleState, StylingFn } from '..';
 import { useSmartReducer } from '../useSmartReducer';
+
+export interface StyleState {
+  hover: boolean;
+  focus: boolean;
+  active: boolean;
+}
+
+export type StylingFn<P> = (
+  state: StyleState,
+  props: P
+) => Record<string, CSSProperties> | CSSProperties;
 
 const initialState: StyleState = {
   hover: false,
@@ -36,10 +45,10 @@ const subscribeToEvents = (el, setStyle) => {
   }
 };
 
-export default function useInlineStyle<T extends HTMLElement, P>(
+export function useInlineStyle<T extends HTMLElement, P>(
   styleFn: StylingFn<P>,
   props?: P
-): [ref: RefObject<T>, style: CSSProperties] {
+): [ref: RefObject<T>, style: Record<string, CSSProperties> | CSSProperties] {
   const ref = useRef<T>(null);
   const [styleState, setStyle] = useSmartReducer(initialState);
 

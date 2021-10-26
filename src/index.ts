@@ -1,4 +1,4 @@
-import { CSSProperties, RefObject } from 'react';
+import { RefObject } from 'react';
 
 export * from './useClickAway';
 export * from './useDimensions';
@@ -20,14 +20,6 @@ export type CustomReducer<S, A> = (prevState: S, action: A) => S | null;
 export type Nullable<T> = T | null;
 
 export type StateSetter = (type: string, value?: unknown) => void;
-
-export interface StyleState {
-  hover: boolean;
-  focus: boolean;
-  active: boolean;
-}
-
-export type StylingFn<P> = (state: StyleState, props: P) => CSSProperties;
 
 export interface Dimensions {
   width: number;
