@@ -13,8 +13,12 @@ export function useClickAway<T extends HTMLElement>(
   const [active, setActive] = useState(false);
   const ref = useRef<T>(null);
 
-  function toggle() {
-    setActive(!active);
+  function toggle(flag?: boolean) {
+    if (typeof flag === 'undefined') {
+      setActive(!active);
+    } else {
+      setActive(flag);
+    }
   }
 
   useEffect(() => {
