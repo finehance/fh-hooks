@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { StylingFn } from '..';
-import useInlineStyle from './useInlineStyle';
+import { StylingFn } from '.';
+import { useInlineStyle } from './useInlineStyle';
 
 interface TestProps {
   isMobile: boolean;
@@ -16,7 +16,7 @@ const stylingFn: StylingFn<TestProps> = (state, props) => {
   };
 };
 
-export default function TestInlineStyle(props: TestProps): React.ReactElement {
+export function InlineStyleExample(props: TestProps): React.ReactElement {
   const [ref, style] = useInlineStyle<HTMLDivElement, TestProps>(
     stylingFn,
     props

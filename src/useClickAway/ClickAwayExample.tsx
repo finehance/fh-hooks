@@ -1,7 +1,7 @@
 import * as React from 'react';
-import useClickAway from './useClickAway';
+import { useClickAway } from './useClickAway';
 
-export default function ClickAwayTest(): React.ReactElement {
+export function ClickAwayExample(): React.ReactElement {
   const { ref, active, toggle } = useClickAway<HTMLDivElement>();
 
   return (

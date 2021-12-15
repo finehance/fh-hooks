@@ -1,8 +1,8 @@
 import { RefObject } from 'react';
 
-export * from './useClickAway';
+export { useClickAway } from './useClickAway';
 export * from './useDimensions';
-export * from './useInlineStyle';
+export { useInlineStyle } from './useInlineStyle';
 export * from './useInterval';
 export * from './useResponsiveness';
 export * from './useScroll';

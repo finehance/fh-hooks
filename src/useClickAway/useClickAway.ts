@@ -7,31 +7,31 @@ interface ClickAwayPayload<T> {
   toggle: () => void;
 }
 
-export default function useClickAway<
-  T extends HTMLElement
->(): ClickAwayPayload<T> {
+export function useClickAway<T extends HTMLElement>(
+  triggerEvent = 'pointerdown'
+): ClickAwayPayload<T> {
   const [active, setActive] = useState(false);
   const ref = useRef<T>(null);
-
-  const handleClickAway = useCallback((e) => {
-    const el = ref.current;
-    if (!el?.contains(e.target)) setActive(false);
-  }, []);
 
   function toggle() {
     setActive(!active);
   }
 
   useEffect(() => {
+    const handleClickAway = (e) => {
+      const el = ref.current;
+      if (!el?.contains(e.target)) setActive(false);
+    };
+
     if (active) {
-      document.addEventListener('pointerdown', handleClickAway);
+      document.addEventListener(triggerEvent, handleClickAway);
     } else {
-      document.removeEventListener('pointerdown', handleClickAway);
+      document.removeEventListener(triggerEvent, handleClickAway);
     }
     return () => {
-      document.removeEventListener('pointerdown', handleClickAway);
+      document.removeEventListener(triggerEvent, handleClickAway);
     };
-  }, [active]);
+  }, [active, triggerEvent]);
 
   return { ref, active, setActive, toggle };
 }

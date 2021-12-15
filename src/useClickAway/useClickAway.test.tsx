@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { renderHook, act } from '@testing-library/react-hooks';
-import useClickAway from './useClickAway';
-import ClickAwayTest from './ClickAwayTest';
+import { useClickAway } from './useClickAway';
+import { ClickAwayExample } from './ClickAwayExample';
 
 test('should return {ref, active, setActive, toogle } object as payload', () => {
   const { result, unmount } = renderHook(() => useClickAway());
@@ -40,7 +40,24 @@ test('should change active state on calling setActive()', () => {
 });
 
 test('sets active to false if pointerdown event is triggered by the document, where target is not a child of referred element', async () => {
-  const { getByRole } = render(<ClickAwayTest />);
+  const { getByRole } = render(<ClickAwayExample />);
+
+  fireEvent.click(getByRole('button'));
+  await waitFor(() => getByRole('button'));
+  // console.log();
+  expect(getByRole('container').getElementsByClassName('content').length).toBe(
+    1
+  );
+
+  fireEvent.pointerDown(getByRole('away'));
+  await waitFor(() => getByRole('away'));
+  expect(getByRole('container').getElementsByClassName('content').length).toBe(
+    0
+  );
+});
+
+test('sets active to false if pointer event is triggered by the document, where target is not a child of referred element', async () => {
+  const { getByRole } = render(<ClickAwayExample />);
 
   fireEvent.click(getByRole('button'));
   await waitFor(() => getByRole('button'));
