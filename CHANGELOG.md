@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/stopyransky/fh-hooks/compare/v3.0.0...v3.1.0) (2021-12-15)
+
+
+### Features
+
+* add triggerEvent property to useClickAway to enable closing on hover ([6448fc5](https://github.com/stopyransky/fh-hooks/commit/6448fc5647346ded87efbb8ccd2ea1eb73a5000a))
+
 # [3.0.0](https://github.com/stopyransky/fh-hooks/compare/v2.1.1...v3.0.0) (2021-10-26)
 
 
