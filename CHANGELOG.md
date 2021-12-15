@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/stopyransky/fh-hooks/compare/v2.1.1...v3.0.0) (2021-10-26)
+
+
+### Features
+
+* **useinlinestyle:** allow style to be an object containing CSSProperties ([fbdd59c](https://github.com/stopyransky/fh-hooks/commit/fbdd59c0e75793e1de35b21c4ebc9cfeca00ecfd))
+
+
+### BREAKING CHANGES
+
+* **useinlinestyle:** useInlineStyle can be used in new way, old ways will still work
+
 ## [2.1.1](https://github.com/stopyransky/fh-hooks/compare/v2.1.0...v2.1.1) (2021-10-11)
 
 
