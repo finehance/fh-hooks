@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/stopyransky/fh-hooks/compare/v3.1.0...v3.2.0) (2021-12-15)
+
+
+### Features
+
+* **toggle flag:** add flag option to toggle on useClickAway ([5c85e91](https://github.com/stopyransky/fh-hooks/commit/5c85e911d80ff776d2dfd601fa7111d0c81c2941))
+
 # [3.1.0](https://github.com/stopyransky/fh-hooks/compare/v3.0.0...v3.1.0) (2021-12-15)
 
 
