@@ -9,8 +9,8 @@ export interface StyleState {
 
 export type StylingFn<P> = (
   state: StyleState,
-  props: P
-) => Record<string, CSSProperties> | CSSProperties;
+  props: Partial<P>
+) => Record<string, CSSProperties>;
 
 const initialState: StyleState = {
   hover: false,
@@ -47,8 +47,8 @@ const subscribeToEvents = (el, setStyle) => {
 
 export function useInlineStyle<T extends HTMLElement, P>(
   styleFn: StylingFn<P>,
-  props?: P
-): [ref: RefObject<T>, style: Record<string, CSSProperties> | CSSProperties] {
+  props?: Partial<P>
+): [ref: RefObject<T>, style: Record<string, CSSProperties>] {
   const ref = useRef<T>(null);
   const [styleState, setStyle] = useSmartReducer(initialState);
 
