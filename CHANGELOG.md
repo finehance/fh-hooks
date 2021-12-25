@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/stopyransky/fh-hooks/compare/v3.2.0...v4.0.0) (2021-12-25)
+
+
+### Features
+
+* useInlineStyle to return CSSProperties to multiple elements ([f6dce84](https://github.com/stopyransky/fh-hooks/commit/f6dce84519ee758945a6b4ec963ee43da98d3c12))
+
+
+### BREAKING CHANGES
+
+* style object is not containing CSSProperties but is a Record<string, CSSProperties>
+
 # [3.2.0](https://github.com/stopyransky/fh-hooks/compare/v3.1.0...v3.2.0) (2021-12-15)
 
 
