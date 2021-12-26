@@ -48,7 +48,11 @@ const subscribeToEvents = (el, setStyle) => {
 export function useInlineStyle<T extends HTMLElement, P>(
   styleFn: StylingFn<P>,
   props?: Partial<P>
-): [ref: RefObject<T>, style: Record<string, CSSProperties>] {
+): [
+  ref: RefObject<T>,
+  style: Record<string, CSSProperties>,
+  styleState: StyleState
+] {
   const ref = useRef<T>(null);
   const [styleState, setStyle] = useSmartReducer(initialState);
 
@@ -60,5 +64,5 @@ export function useInlineStyle<T extends HTMLElement, P>(
 
   useEffect(() => subscribeToEvents(ref.current, setStyle), []);
 
-  return [ref, style];
+  return [ref, style, styleState];
 }

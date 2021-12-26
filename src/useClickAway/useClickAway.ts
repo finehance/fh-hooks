@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 interface ClickAwayPayload<T> {
   ref: React.RefObject<T>;

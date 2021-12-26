@@ -6,7 +6,7 @@ import { BasicExample } from './examples/BasicExample';
 import { ComplexExample } from './examples/ComplexExample';
 
 describe('basic usage of useInlineStyle hook', () => {
-  it('should return [ref, style] tuple', () => {
+  it('should return [ref, style, styleState] array', () => {
     const { result, unmount } = renderHook(() =>
       useInlineStyle(() => ({
         testElStyle: {
@@ -15,12 +15,16 @@ describe('basic usage of useInlineStyle hook', () => {
       }))
     );
 
-    const [ref, style] = result.current;
+    const [ref, style, state] = result.current;
 
+    expect(typeof ref).toBe('object');
     expect(typeof style).toBe('object');
     expect(style.testElStyle).toBeDefined();
     expect(typeof style.testElStyle).toBe('object');
-    expect(typeof ref).toBe('object');
+    expect(typeof state).toBe('object');
+    expect(typeof state.hover).toEqual('boolean');
+    expect(typeof state.focus).toEqual('boolean');
+    expect(typeof state.active).toEqual('boolean');
     unmount();
   });
 
