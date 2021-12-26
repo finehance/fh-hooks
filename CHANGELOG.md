@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/stopyransky/fh-hooks/compare/v4.0.0...v4.1.0) (2021-12-26)
+
+
+### Features
+
+* expose styleState from useInlineStyle ([73826fc](https://github.com/stopyransky/fh-hooks/commit/73826fc0b77c8d38596c993e991e9459cdf1c646))
+
 # [4.0.0](https://github.com/stopyransky/fh-hooks/compare/v3.2.0...v4.0.0) (2021-12-25)
 
 
